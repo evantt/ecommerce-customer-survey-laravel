@@ -80,7 +80,7 @@
                     <label for="text-body">Survey</label>
                     <select name="survey_id" class="form-control">
                         @foreach($surveys as $survey)
-                            <option value="{{ $survey->id }}" {{ $survey->id === $respondents->survey_id ? ' selected' : '' }}>{{ $survey->name }}</option>
+                            <option value="{{ $survey->id }}" {{ $survey->id === $respondents->survey_id ? ' selected' : '' }}>{{ $survey->storename }}</option>
                         @endforeach
                     </select>
                 </div>

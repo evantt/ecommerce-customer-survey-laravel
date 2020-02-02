@@ -14,11 +14,11 @@ class Respondent extends Model
     // public $timestamps = true;
     protected $fillable = ['first_name', 'last_name', 'phone_number', 'email', 'gender', 'birthdate', 'address', 'country_id', 'zip_code', 'occupation', 'survey_id'];
     
-    public function surveys(){
-        return $this->belongsTo('App\Survey');
-    }
+    // public function surveys(){
+    //     return $this->belongsTo('App\Survey');
+    // }
     
-    public function countries(){
-        return $this->belongsTo('App\Country');
-    }
+    // public function countries(){
+    //     return $this->belongsTo('App\Country');
+    // }
 }

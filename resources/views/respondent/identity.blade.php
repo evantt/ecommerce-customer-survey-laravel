@@ -3,7 +3,8 @@
 @section('title', 'Respondent-EcommerceSurvey')
 
 @section('content')
-<form action="/Admin/store" method="POST">
+<form action="/Respondent/create" method="POST">
+    @csrf
     <div class="container">
         <div class="row">
             <div class="col px-1">
@@ -80,7 +81,7 @@
                 <label for="text-body">Survey</label>
                 <select name="survey_id" class="form-control">
                     @foreach($surveys as $survey)
-                        <option value="{{ $survey->id }}">{{ $survey->name }}</option>
+                        <option value="{{ $survey->id }}">{{ $survey->store }}</option>
                     @endforeach
                 </select>
             </div>

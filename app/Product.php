@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Survey extends Model
+class Product extends Model
 {
-    protected $fillable = ['store'];
+    protected $fillable = ['category', 'name', 'qty', 'price'];
 
     public function respondents(){
         return $this->hasOne('App\Respondent');

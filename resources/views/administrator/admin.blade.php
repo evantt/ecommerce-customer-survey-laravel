@@ -25,7 +25,7 @@
             </button>
             </div>
             <div class="modal-body">
-                <form action="/Admin/store" method="POST">
+                <form action="/Admin/create" method="POST">
                     {{csrf_field()}}
                     <div class="container">
                         <label for="text-body">Full Name</label>
@@ -100,7 +100,7 @@
                             <label for="text-body">Survey</label>
                             <select name="survey_id" class="form-control">
                             @foreach($surveys as $survey)
-                                <option value="{{ $survey->id }}">{{ $survey->name }}</option>
+                                <option value="{{ $survey->id }}">{{ $survey->storename }}</option>
                             @endforeach
                             </select>
                         </div>
@@ -124,7 +124,8 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th scope="col">Id</th>
+                <th scope="col">Resp_Id</th>
+                <th scope="col">Role</th>
                 <th scope="col">Survey</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
@@ -143,6 +144,7 @@
             @foreach($respondents as $respondent)
             <tr>
                 <td>{{$respondent->id}}</td>
+                <td>{{$respondent->role}}</td>
                 <td>{{$respondent->survey_id}}</td>
                 <td>{{$respondent->first_name}}</td>
                 <td>{{$respondent->last_name}}</td>
@@ -167,4 +169,116 @@
              @endforeach
         </tbody>
     </table>
+
+    <button type="button" class="btn btn-outline-info float-right" data-toggle="modal" data-target="#AddSurvey">
+    +</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="AddSurvey" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="AddSurveyLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="AddSurveyLabel">Insert Survey</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form action="/Admin/create" method="POST">
+                    {{csrf_field()}}
+                    <div class="container">
+                        <label for="text-body">Respondent</label>
+                        <div class="row">
+                            <div class="col">
+                                <input name="resp_id" type="text" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('resp_id') }}" placeholder="Resp_id">
+                                @error('first_name')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col my-2">
+                                <label for="text-body">Product</label>
+                                <select name="product_id" class="form-control">
+                                    <@foreach($products as $product)
+                                        <option value="{{ $product->id }}">{{ $product->category }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col my-2">
+                                <label for="text-body">Shipment</label>
+                                <select name="shipment_id" class="form-control">
+                                    <@foreach($shipments as $shipment)
+                                        <option value="{{ $shipment->id }}">{{ $shipment->service }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                    <div class="row">
+                        <div class="col my-2">
+                            <label for="text-body">Payment</label>
+                            <select name="payment_id" class="form-control">
+                            @foreach($payments as $payment)
+                                <option value="{{ $payment->id }}">{{ $payment->method }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+                        <button type="button" class="btn btn-outline-info my-3" data-dismiss="modal" >Back</button>
+                        <button type="submit" class="btn btn-outline-info float-right my-3">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    <h3>Survey Database</h3> 
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Resp_Id</th>
+                <!-- <th scope="col">Resp_name</th> -->
+                <th scope="col">Product_Id</th>
+                <th scope="col">Shipment_Id</th>
+                <th scope="col">Payment_Id</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($orders as $order)
+            <tr>
+                <td>{{$order->id}}</td>
+                <td>{{$order->resp_id}}</td>
+                <!-- <td>{{$order->first_name}}</td> -->
+                <td>{{$order->product_id}}</td>
+                <td>{{$order->shipment_id}}</td>
+                <td>{{$order->payment_id}}</td>
+                <td>
+                    <a href="/Admin/{{$order->id}}/edit" class="badge badge-success">edit</a>
+                    <form action="/Admin/{{$order->id}}/delete" method="POST" class="d-inline">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" class="badge badge-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+             @endforeach
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-outline-info float-right my-3">Logout</button>
 @endsection

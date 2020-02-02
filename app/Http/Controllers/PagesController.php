@@ -21,18 +21,13 @@ class PagesController extends Controller
         return view('administrator.login');
     }
 
-    // public function Identity()
-    // {
-    //     return view('respondent.identity');
-    // }
-
     public function Register()
     {
         return view('administrator.register');
     }
 
-    public function Survey()
-    {
-        return view('respondent.survey');
-    }
+    // public function Survey()
+    // {
+    //     return view('respondent.survey');
+    // }
 }

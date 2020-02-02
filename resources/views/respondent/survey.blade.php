@@ -27,8 +27,6 @@
   </div>
 </div>
 </form> -->
-<form>
-  
 
   <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Open modal for @fat</button>
@@ -45,15 +43,16 @@
     </div>
   </div>
 
+<form method="post" action="/Survey/create">
   <div class="container">
     <div class="row">
       <div class="col-3 my-2">
       <label for="text-body">Product Categories</label>
-        <select class="form-control">
-          <option>Category</option>
-          <option>Electronic</option>
-          <option>Fashion</option>
-        </select>
+      <select name="product_id" class="form-control">
+        <@foreach($products as $product)
+          <option value="{{ $product->id }}">{{ $product->category }}</option>
+        @endforeach
+      </select>
       </div>
       <div class="col-3 my-2">
       <label for="text-body">Product Name</label>
@@ -74,11 +73,11 @@
     <div class="row">
       <div class="col-3 my-2">
       <label for="text-body">Shipment Services</label>
-        <select class="form-control">
-          <option>Service</option>
-          <option>JNE</option>
-          <option>TIKI</option>
-        </select>
+      <select name="shipment_id" class="form-control">
+        <@foreach($shipments as $shipment)
+          <option value="{{ $shipment->id }}">{{ $shipment->service }}</option>
+        @endforeach
+      </select>
       </div>
       <div class="col-3 my-2">
       <label for="text-body">Shipment Cost</label>
@@ -95,22 +94,24 @@
     <div class="row">
       <div class="col-3 my-2">
           <label for="text-body">Payment Methods</label>
-          <select class="form-control">
-            <option>Method</option>
-            <option>Paypal</option>
-            <option>COD</option>
-          </select>
+          <select name="payment_id" class="form-control">
+          <@foreach($payments as $payment)
+            <option value="{{ $payment->id }}">{{ $payment->method }}</option>
+          @endforeach
+        </select>
       </div>  
     </div>
   </div>
+  @csrf
   <div class="container">
     <div class="row">
       <div class="col">
-        <!-- <button type="button" class="btn btn-outline-info btn-md my-4">Submit</button> -->
+        <button type="submit" class="btn btn-outline-info btn-md my-4">Submit</button>
               <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-info btn-md my-4" data-toggle="modal" data-target="#staticBackdrop">
+        <!-- <button type="button" class="btn btn-outline-info btn-md my-4" data-toggle="modal" data-target="#staticBackdrop">
         Submit
-        </button>
+        </button> -->
+</form>
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -137,5 +138,4 @@
       </div>
     </div>
   </div>
-</form>
 @endsection
